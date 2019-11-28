@@ -7,8 +7,7 @@ class First extends React.Component {
 
         return (
             <>
-                <h1>First</h1>
-                <pre>{JSON.stringify(this.props, null, 4)}</pre>
+                <div>First</div>
             </>);
     }
 }
