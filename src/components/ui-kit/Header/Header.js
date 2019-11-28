@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import TabButton from '../TabButton';
 
 import { ROUTES } from '../../../utils/contants';
@@ -16,61 +18,66 @@ const HeaderWrapper = styled.div`
   align-items: center;
 `;
 
+const StyledLink = styled(Link)`
+    & {
+        color: inherit;
+        text-decoration: none;
+    }
+`;
+
 
 class Header extends React.PureComponent {
-    state = {
-        activeTab : 'posts'
+    static propTypes = {
+        match : PropTypes.object.isRequired
     }
 
-    handleTabClick = (tab) => {
-        console.log(tab);
+    isActive = (tab) => {
+        const { match } = this.props;
 
-        this.setState({ activeTab: tab });
+        return tab === match.path;
     }
 
     render() {
-        const { activeTab } = this.state;
-
         return (
             <HeaderWrapper>
-                <TabButton
-                    route={ROUTES.users}
-                    activeTab={activeTab}
-                    onClick={this.handleTabClick}
-                >
-                    Users
-                </TabButton >
-                <TabButton
-                    route={ROUTES.posts}
-                    activeTab={activeTab}
-                    onClick={this.handleTabClick}
-                >
-                    Posts
-                </TabButton>
-                <TabButton
-                    route={ROUTES.comments}
-                    activeTab={activeTab}
-                    onClick={this.handleTabClick}
-                >
-                    Comments
-                </TabButton>
-                <TabButton
-                    route={ROUTES.albums}
-                    activeTab={activeTab}
-                    onClick={this.handleTabClick}
-                >
-                    Albums
-                </TabButton>
-                <TabButton
-                    route={ROUTES.photos}
-                    activeTab={activeTab}
-                    onClick={this.handleTabClick}
-                >
-                    Photos
-                </TabButton>
+                <StyledLink to={ROUTES.users}>
+                    <TabButton
+                        isActive={this.isActive(ROUTES.users)}
+                    >
+                        Users
+                    </TabButton>
+                </StyledLink>
+                <StyledLink to={ROUTES.posts}>
+                    <TabButton
+                        isActive={this.isActive(ROUTES.posts)}
+                    >
+                        Posts
+                    </TabButton>
+                </StyledLink>
+                <StyledLink to={ROUTES.comments}>
+                    <TabButton
+                        isActive={this.isActive(ROUTES.comments)}
+                    >
+                        Comments
+                    </TabButton>
+                </StyledLink>
+                <StyledLink to={ROUTES.albums}>
+                    <TabButton
+                        isActive={this.isActive(ROUTES.albums)}
+                    >
+                        Albums
+                    </TabButton>
+                </StyledLink>
+                <StyledLink to={ROUTES.photos}>
+                    <TabButton
+                        isActive={this.isActive(ROUTES.photos)}
+                    >
+                        Photos
+                    </TabButton>
+                </StyledLink>
             </HeaderWrapper>
         );
     }
 }
 
-export default Header;
+export default withRouter(Header);

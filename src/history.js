@@ -1,4 +1,4 @@
-import { stringify, parse } from 'querystring';
+import { stringify, parse } from 'query-string';
 import { createBrowserHistory } from 'history';
 import qhistory from 'qhistory';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from '../Button';
@@ -7,27 +8,21 @@ const TabButtonContainer = styled(Button)`
   margin-left: 10px;
   border-width: 0;
   border-radius: 0;
-  border-bottom: 2px solid ${props => props.disabled && 'transparent'};
+  border-bottom: 2px solid ${props => !props.isActive && 'transparent'};
 `;
 
 class TabButton extends React.PureComponent {
-    handleClick = () => {
-        const { onClick, route } = this.props;
-
-        onClick(route);
+    static propTypes = {
+        children : PropTypes.node.isRequired,
+        onClick  : PropTypes.func.isRequired
     }
 
     render() {
-        const { children, className, activeTab, route, onClick, ...p } = this.props;
-
-        const disabled = activeTab !== route;
+        const { children, ...rest } = this.props;
 
         return (
             <TabButtonContainer
-                className={className}
-                disabled={disabled}
-                onClick={this.handleClick}
-                {...p}
+                {...rest}
             >
                 {children}
             </TabButtonContainer>

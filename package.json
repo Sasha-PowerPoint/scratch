@@ -38,6 +38,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "history": "^4.10.1",
+    "mobx": "^5.15.0",
+    "mobx-state-tree": "^3.15.0",
     "prop-types": "^15.7.2",
     "qhistory": "^1.0.3",
     "qs": "^6.9.1",

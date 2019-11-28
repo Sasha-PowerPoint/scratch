@@ -2,27 +2,34 @@ import { hot } from 'react-hot-loader/root';
 import React, { PureComponent } from 'react';
 import { ThemeProvider } from 'styled-components';
 import {
-    Router,
-    Switch,
-    Route
+    Router
 } from 'react-router-dom';
+import { Switch,
+    Route } from 'react-router';
+import UsersPage    from '../components/pages/UsersPage';
+import PostsPage    from '../components/pages/PostsPage';
+import CommentsPage from '../components/pages/CommentsPage';
+import AlbumsPage   from '../components/pages/AlbumsPage';
+import PhotosPage   from '../components/pages/PhotosPage';
+
+
 import { history } from '../history';
 import { theme }   from '../assets/theme';
 
-
-import First from '../components/First';
-import Second from '../components/Second';
 import MainLayout  from './layouts/MainLayout';
 
 import './App.less';
 
-function AppRoute({ ...props }) {
+function AppRoute({ component: Page, ...rest }) {
     return (
-        <MainLayout {...props}>
-            <Route
-                {...props}
-            />
-        </MainLayout>
+        <Route
+            {...rest}
+            render = {props => (  //eslint-disable-line
+                <MainLayout {...props}>
+                    <Page {...props} />
+                </MainLayout>
+            )}
+        />
     );
 }
 
@@ -34,8 +41,11 @@ class App extends PureComponent { //eslint-disable-line
                     history={history}
                 >
                     <Switch>
-                        <AppRoute path='/' component={First} />
-                        <AppRoute path='/l' component={Second} />
+                        <AppRoute exact path='/users'   component={UsersPage} />
+                        <AppRoute path='/posts'    component={PostsPage} />
+                        <AppRoute path='/comments' component={CommentsPage} />
+                        <AppRoute path='/albums'   component={AlbumsPage} />
+                        <AppRoute path='/photos'   component={PhotosPage} />
                     </Switch>
                 </Router>
             </ThemeProvider>

@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle } from 'styled-components';
-
 import Header  from '../ui-kit/Header';
+
+import { PAGES } from '../../utils/contants';
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -23,19 +24,27 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const PageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background: ${props => props.theme.main.default};
+  display: flex;
+  flex-direction: column;
+`;
+
 export default class MainLayout extends React.PureComponent {
-    propTypes = {
-        children : PropTypes.array.isRequired
+    static propTypes = {
+        children : PropTypes.node.isRequired
     }
 
     render() {
-        const { children } = this.props;
-
         return (
             <Wrapper>
                 <GlobalStyle />
                 <Header />
-                {children}
+                <PageWrapper>
+                    { this.props.children}
+                </PageWrapper>
             </Wrapper>
         );
     }
