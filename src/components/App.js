@@ -2,7 +2,8 @@ import { hot } from 'react-hot-loader/root';
 import React, { PureComponent } from 'react';
 import { ThemeProvider } from 'styled-components';
 import {
-    Router
+    Router,
+    Redirect
 } from 'react-router-dom';
 import { Switch,
     Route } from 'react-router';
@@ -12,7 +13,7 @@ import CommentsPage from '../components/pages/CommentsPage';
 import AlbumsPage   from '../components/pages/AlbumsPage';
 import PhotosPage   from '../components/pages/PhotosPage';
 
-
+import '../store';
 import { history } from '../history';
 import { theme }   from '../assets/theme';
 
@@ -41,11 +42,12 @@ class App extends PureComponent { //eslint-disable-line
                     history={history}
                 >
                     <Switch>
-                        <AppRoute exact path='/users'   component={UsersPage} />
+                        <AppRoute path='/users'  component={UsersPage} />
                         <AppRoute path='/posts'    component={PostsPage} />
                         <AppRoute path='/comments' component={CommentsPage} />
                         <AppRoute path='/albums'   component={AlbumsPage} />
                         <AppRoute path='/photos'   component={PhotosPage} />
+                        <Redirect to='/users' />
                     </Switch>
                 </Router>
             </ThemeProvider>

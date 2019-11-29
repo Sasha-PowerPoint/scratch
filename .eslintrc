@@ -1,6 +1,7 @@
 {
     "extends": "webbylab",
     "rules" : {
-        "more/no-window" : 0
+        "more/no-window" : 0,
+        "no-param-reassign" : 0
     }
 }
