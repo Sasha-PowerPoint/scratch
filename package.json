@@ -13,6 +13,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
     "@babel/plugin-proposal-optional-chaining": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
@@ -27,6 +28,7 @@
     "eslint-plugin-no-require-lodash": "^1.1.0",
     "eslint-plugin-prefer-spread": "^1.0.3",
     "eslint-plugin-react": "^7.16.0",
+    "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
@@ -36,6 +38,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.7.4",
     "@babel/polyfill": "^7.7.0",
     "history": "^4.10.1",
     "mobx": "^5.15.0",

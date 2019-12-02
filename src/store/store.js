@@ -1,17 +1,27 @@
 import { types, getSnapshot } from 'mobx-state-tree';
 
 const User = types.model({
-    id        : '',
-    firstName : '',
-    lastName  : '',
-    gender    : ''
+    address      : '',
+    dob          : '',
+    email        : '',
+    'first_name' : '',
+    gender       : '',
+    id           : '',
+    'last_name'  : '',
+    phone        : '',
+    status       : '',
+    website      : '',
+    disabled     : types.optional(types.boolean, false)
 }).views(self => ({
     get fullName() {
-        return `${self.firstName} ${self.lastName}`;
+        return `${self.first_name} ${self.last_name}`;
+    },
+    get isActive() {
+        return self.status === 'active';
     }
 })).actions(self => ({
-    іsetFirtsName() {
-        self.firstName = '77777777777';
+    toggleDisabled() {
+        self.disabled = !self.disabled;
     }
 }));
 
@@ -22,8 +32,6 @@ const Post = types.model({
     'user_id' : types.string
 });
 
-export const john = User.create({ name: 'Vasiliy' });
-
 const RootStore = types.model({
     users : types.array(User),
     posts : types.array(Post)
@@ -32,16 +40,40 @@ const RootStore = types.model({
 const state = {
     users : [
         {
-            id        : '1',
-            firstName : 'sdas',
-            lastName  : 'asdsa',
-            gender    : 'asdsda'
+            address      : '93202 Kovacek Islands↵New Grover, CA 10357-7437',
+            dob          : '1921-11-14',
+            email        : 'oreilly.letha@example.org',
+            'first_name' : 'Willa',
+            gender       : 'female',
+            id           : '1',
+            'last_name'  : 'Gerlach',
+            phone        : '+1 (243) 356-0621',
+            status       : 'inactive',
+            website      : 'https://www.grimes.info/quisquam-eius-sint-corrupti-repellendus-laboriosam'
         },
         {
-            id        : '2',
-            firstName : 'ddddd',
-            lastName  : 'asdsa',
-            gender    : 'asdsda'
+            address      : '98705 Kristina Motorway↵North Dock, GA 66538-3205',
+            dob          : '1983-07-21',
+            email        : 'powlowski.aubree@example.net',
+            'first_name' : 'Emily',
+            gender       : 'female',
+            id           : '2',
+            'last_name'  : 'Price',
+            phone        : '389-483-6536',
+            status       : 'inactive',
+            website      : 'http://www.homenick.com/'
+        },
+        {
+            address      : '546 Alice Forges Apt. 091↵Altenwerthshire, CT 64764',
+            dob          : '1938-10-30',
+            email        : 'selmer.harris@example.org',
+            'first_name' : 'Gilberto',
+            gender       : 'male',
+            id           : '3',
+            'last_name'  : 'McCullough',
+            phone        : '378.233.5279 x9162',
+            status       : 'active',
+            website      : 'http://graham.com/qui-ab-in-magni-id-dolore-quibusdam-unde'
         }
     ],
     posts : [
@@ -62,6 +94,4 @@ const state = {
 
 const store = RootStore.create(state);
 
-console.log(store.users[0].fullName);
-store.users[0].setFirtsName();
-console.log(store.users[0].fullName);
+export default store;

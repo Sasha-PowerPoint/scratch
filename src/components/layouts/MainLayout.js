@@ -14,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Poppins';
     box-sizing: border-box;
   }
+
+  h1 {
+    margin: 0
+  }
 `;
 
 const Wrapper = styled.div`

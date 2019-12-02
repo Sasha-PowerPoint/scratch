@@ -1,5 +1,6 @@
 import { hot } from 'react-hot-loader/root';
 import React, { PureComponent } from 'react';
+import { Provider } from 'mobx-react';
 import { ThemeProvider } from 'styled-components';
 import {
     Router,
@@ -13,9 +14,12 @@ import CommentsPage from '../components/pages/CommentsPage';
 import AlbumsPage   from '../components/pages/AlbumsPage';
 import PhotosPage   from '../components/pages/PhotosPage';
 
-import '../store';
+
+import store from '../store';
+
 import { history } from '../history';
 import { theme }   from '../assets/theme';
+
 
 import MainLayout  from './layouts/MainLayout';
 
@@ -37,20 +41,22 @@ function AppRoute({ component: Page, ...rest }) {
 class App extends PureComponent { //eslint-disable-line
     render() {
         return (
-            <ThemeProvider theme={theme}>
-                <Router
-                    history={history}
-                >
-                    <Switch>
-                        <AppRoute path='/users'  component={UsersPage} />
-                        <AppRoute path='/posts'    component={PostsPage} />
-                        <AppRoute path='/comments' component={CommentsPage} />
-                        <AppRoute path='/albums'   component={AlbumsPage} />
-                        <AppRoute path='/photos'   component={PhotosPage} />
-                        <Redirect to='/users' />
-                    </Switch>
-                </Router>
-            </ThemeProvider>
+            <Provider store={store}>
+                <ThemeProvider theme={theme}>
+                    <Router
+                        history={history}
+                    >
+                        <Switch>
+                            <AppRoute path='/users'  component={UsersPage} />
+                            <AppRoute path='/posts'    component={PostsPage} />
+                            <AppRoute path='/comments' component={CommentsPage} />
+                            <AppRoute path='/albums'   component={AlbumsPage} />
+                            <AppRoute path='/photos'   component={PhotosPage} />
+                            <Redirect to='/users' />
+                        </Switch>
+                    </Router>
+                </ThemeProvider>
+            </Provider>
         );
     }
 }
