@@ -10,8 +10,13 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     height: 100%;
+    min-height: 100%;
     width: 100%;
     font-family: 'Poppins';
+    box-sizing: border-box;
+  }
+
+  * {
     box-sizing: border-box;
   }
 
@@ -22,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background: ${props => props.theme.main.default};
   display: flex;
   flex-direction: column;

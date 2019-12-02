@@ -1,13 +1,8 @@
 import queryString from 'query-string';
 
-const config = window.API_CONFIG; // eslint-disable-line
+const config = window.APIconfig; // eslint-disable-line
 
 export default class ApiClient {
-    constructor({ prefix = 'v1/' } = {}) {
-        this.prefix = prefix;
-        this.token  = '';
-    }
-
     async get(url, params) {
         return this.request({
             url,
@@ -49,10 +44,10 @@ export default class ApiClient {
     }
 
     async request({ url, method, params = {}, body }) {
-        const query = `?${queryString.stringify({ ...params, 'access-token': '1lEFAq1L9tFW5T6gyG1RcNFT2-8bS0X44yMA' })}`;
+        const query = `?${queryString.stringify({ ...params, '_format': 'json', 'access-token': '1lEFAq1L9tFW5T6gyG1RcNFT2-8bS0X44yMA' })}`;
 
         const response = await fetch(
-            `${config.apiUrl}${this.prefix}${url}${query}`,
+            `${config.apiUrl}${config.apiPrefix}${url}${query}`,
             {
                 method,
                 headers : {
@@ -68,6 +63,6 @@ export default class ApiClient {
 
         if (json.status === 0) throw json.error;
 
-        return json.data;
+        return json.result;
     }
 }

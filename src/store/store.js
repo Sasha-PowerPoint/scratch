@@ -1,41 +1,29 @@
-import { types, getSnapshot } from 'mobx-state-tree';
+import { types, flow  } from 'mobx-state-tree';
+import API              from '../api';
+import User             from './User';
+import Post             from './Post';
 
-const User = types.model({
-    address      : '',
-    dob          : '',
-    email        : '',
-    'first_name' : '',
-    gender       : '',
-    id           : '',
-    'last_name'  : '',
-    phone        : '',
-    status       : '',
-    website      : '',
-    disabled     : types.optional(types.boolean, false)
-}).views(self => ({
-    get fullName() {
-        return `${self.first_name} ${self.last_name}`;
-    },
-    get isActive() {
-        return self.status === 'active';
-    }
-})).actions(self => ({
-    toggleDisabled() {
-        self.disabled = !self.disabled;
-    }
-}));
+const api = new API();
 
-const Post = types.model({
-    id        : '',
-    body      : '',
-    title     : '',
-    'user_id' : types.string
-});
 
 const RootStore = types.model({
-    users : types.array(User),
-    posts : types.array(Post)
-});
+    users        : types.array(User),
+    posts        : types.array(Post),
+    usersLoading : types.optional(types.boolean, true)
+})
+    .actions(self => ({
+        fetchUsers : flow(function* fetchUsers() {
+            self.users = [];
+            self.usersLoading = true;
+            try {
+                self.users = yield api.get('users');
+                self.usersLoading = false;
+            } catch (error) {
+                console.error('Failed to fetch projects', error);
+                self.state = 'error';
+            }
+        })
+    }));
 
 const state = {
     users : [

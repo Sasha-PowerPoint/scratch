@@ -2,11 +2,14 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { action } from 'mobx';
 import styled from 'styled-components';
+import API from '../../../api';
 
 import UserComponent from '../../ui-kit/UserComponent';
 
+const api = new API();
+
 const PageWrapper = styled.div`
-    padding: 10px
+    padding: 10px;
 `;
 
 const StyledUserComponent = styled(UserComponent)`
@@ -18,6 +21,10 @@ const StyledUserComponent = styled(UserComponent)`
 @inject('store')
 @observer
 class UsersPage extends React.Component {
+    componentDidMount = () => {
+        this.props.store.fetchUsers();
+    }
+
     render() {
         const { users } = this.props.store;
 
