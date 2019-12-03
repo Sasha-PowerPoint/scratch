@@ -9,7 +9,8 @@ const api = new API();
 const RootStore = types.model({
     users        : types.array(User),
     posts        : types.array(Post),
-    usersLoading : types.optional(types.boolean, true)
+    usersLoading : types.optional(types.boolean, true),
+    postsLoading : types.optional(types.boolean, true)
 })
     .actions(self => ({
         fetchUsers : flow(function* fetchUsers() {
@@ -22,7 +23,19 @@ const RootStore = types.model({
                 console.error('Failed to fetch projects', error);
                 self.state = 'error';
             }
+        }),
+        fetchPosts : flow(function* fetchPosts() {
+            self.posts = [];
+            self.postsLoading = true;
+            try {
+                self.posts = yield api.get('posts');
+                self.postsLoading = false;
+            } catch (error) {
+                console.error('Failed to fetch projects', error);
+                self.state = 'error';
+            }
         })
+
     }));
 
 const state = {

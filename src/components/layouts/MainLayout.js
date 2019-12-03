@@ -39,6 +39,7 @@ const PageWrapper = styled.div`
   background: ${props => props.theme.main.default};
   display: flex;
   flex-direction: column;
+  padding: 0 calc((100% - 1000px) / 2);
 `;
 
 export default class MainLayout extends React.PureComponent {
