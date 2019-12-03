@@ -1,26 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { action } from 'mobx';
 import styled from 'styled-components';
-import API from '../../../api';
 
+import AnimatedList from '../../ui-kit/AnimatedList';
 import UserComponent from '../../ui-kit/UserComponent';
-
-const api = new API();
 
 const PageWrapper = styled.div`
     padding: 10px;
 `;
 
-const StyledUserComponent = styled(UserComponent)`
-    &:not(:last-child){
-        margin-bottom: 10px;
-    }
+const StyledUserComponentWrapper = styled.div`
+ &:not(:last-child) {
+    margin-bottom: 10px;
+ }
 `;
+
 
 @inject('store')
 @observer
 class UsersPage extends React.Component {
+    static propTypes = {
+        store : PropTypes.shape({
+            fetchUsers : PropTypes.func.isRequired,
+            users      : PropTypes.array.isRequired
+        }).isRequired
+    }
+
+    state = {
+        a : true
+    }
+
     componentDidMount = () => {
         this.props.store.fetchUsers();
     }
@@ -29,9 +39,13 @@ class UsersPage extends React.Component {
         const { users } = this.props.store;
 
         return (
-            <PageWrapper>
-                {users.map(user => <StyledUserComponent key={user.id} user={user} />)}
-            </PageWrapper>
+            <>
+                <PageWrapper>
+                    <AnimatedList wrapper={StyledUserComponentWrapper}>
+                        {users.map(user => <UserComponent key={user.id} user={user} />)}
+                    </AnimatedList>
+                </PageWrapper>
+            </>
         );
     }
 }

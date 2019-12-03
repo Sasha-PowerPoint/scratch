@@ -1,9 +1,10 @@
 import React from 'react';
+import Spinner from '../../ui-kit/Spinner';
 
 class CommentsPage extends React.PureComponent {
     render() {
         return (
-            <p>comments</p>
+            <Spinner />
         );
     }
 }

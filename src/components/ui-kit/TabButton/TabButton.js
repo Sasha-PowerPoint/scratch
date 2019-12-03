@@ -13,8 +13,7 @@ const TabButtonContainer = styled(Button)`
 
 class TabButton extends React.PureComponent {
     static propTypes = {
-        children : PropTypes.node.isRequired,
-        onClick  : PropTypes.func.isRequired
+        children : PropTypes.node.isRequired
     }
 
     render() {

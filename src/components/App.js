@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { Switch,
     Route } from 'react-router';
+import { IconContext } from 'react-icons';
 import UsersPage    from '../components/pages/UsersPage';
 import PostsPage    from '../components/pages/PostsPage';
 import CommentsPage from '../components/pages/CommentsPage';
@@ -41,22 +42,24 @@ function AppRoute({ component: Page, ...rest }) {
 class App extends PureComponent { //eslint-disable-line
     render() {
         return (
-            <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                    <Router
-                        history={history}
-                    >
-                        <Switch>
-                            <AppRoute path='/users'  component={UsersPage} />
-                            <AppRoute path='/posts'    component={PostsPage} />
-                            <AppRoute path='/comments' component={CommentsPage} />
-                            <AppRoute path='/albums'   component={AlbumsPage} />
-                            <AppRoute path='/photos'   component={PhotosPage} />
-                            <Redirect to='/users' />
-                        </Switch>
-                    </Router>
-                </ThemeProvider>
-            </Provider>
+            <IconContext.Provider value={{ color: '#6b778d', size: '20px' }}>
+                <Provider store={store}>
+                    <ThemeProvider theme={theme}>
+                        <Router
+                            history={history}
+                        >
+                            <Switch>
+                                <AppRoute path='/users'  component={UsersPage} />
+                                <AppRoute path='/posts'    component={PostsPage} />
+                                <AppRoute path='/comments' component={CommentsPage} />
+                                <AppRoute path='/albums'   component={AlbumsPage} />
+                                <AppRoute path='/photos'   component={PhotosPage} />
+                                <Redirect to='/users' />
+                            </Switch>
+                        </Router>
+                    </ThemeProvider>
+                </Provider>
+            </IconContext.Provider>
         );
     }
 }

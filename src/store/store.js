@@ -9,8 +9,8 @@ const api = new API();
 const RootStore = types.model({
     users        : types.array(User),
     posts        : types.array(Post),
-    usersLoading : types.optional(types.boolean, true),
-    postsLoading : types.optional(types.boolean, true)
+    usersLoading : types.optional(types.boolean, false),
+    postsLoading : types.optional(types.boolean, false)
 })
     .actions(self => ({
         fetchUsers : flow(function* fetchUsers() {

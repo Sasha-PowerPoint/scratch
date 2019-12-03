@@ -8,6 +8,10 @@ import TabButton from '../TabButton';
 import { ROUTES } from '../../../utils/contants';
 
 const HeaderWrapper = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 20;
   height: 60px;
   padding: 0 20px;
   width: 100%;
